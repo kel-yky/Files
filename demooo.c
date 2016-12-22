@@ -1,5 +1,6 @@
 int mode = 1;
 int x; //tested optimal working speed
+int target_speed[3] = {0};
 int speed[3] = {0};
 int timer = 0; //in milliseconds
 int prev_stage_time = 0;
@@ -41,6 +42,10 @@ int main()
 	speed[0] = x;
 	speed[1] = 0.5x;
 	speed[2] = 0.5x;
+	target_speed[0] = x;
+	target_speed[1] = 0.5x;
+	target_speed[2] = 0.5x;
+	
 	
 	while(1)
 	{
@@ -59,9 +64,9 @@ int main()
 				if (stage == BEGIN)
 				{
 					stagetime = timer - prev_stage_time;
-					motor_control(MOTOR1, speed[0]);
-					motor_control(MOTOR2, speed[1]);
-					motor_control(MOTOR3, speed[2]);
+					motor_control(MOTOR1, target_speed[0]);
+					motor_control(MOTOR2, target_speed[1]);
+					motor_control(MOTOR3, target_speed[2]);
 					if (get_count(1) != 0)
 					{
 						stage = ACCEL;
@@ -73,7 +78,7 @@ int main()
 					get_real_velocity(encoder, stagetime);
 					for (i = 0; i < 3; i++)
 					{
-						diff[i] = e_vel[i] - speed[i];
+						diff[i] = e_vel[i] - target_speed[i];
 						if (diff[i] < 0)
 						{
 							speed[i] += ACONST*diff[i];
