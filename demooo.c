@@ -14,6 +14,8 @@ int t_interval2; //stop time
 
 int button_time = 0;
 
+int get_real_velocity(*encoder,stagetime); //function prototype
+
 int main()
 {
 	//init
@@ -205,7 +207,7 @@ int main()
 					motor_control(MOTOR2, -speed[1]);
 					motor_control(MOTOR3, -speed[2]);
 				}
-				if (stagetime %  == 0)
+				if (stagetime % t_interval2 == 0)
 				{
 					prev_stage_time = timer;
 					stage = END;
@@ -216,6 +218,7 @@ int main()
 				stagetime = timer - prev_stage_time;
 			}
 			case 2: //manual mode
+				//listener
 		}
 	}
 	
